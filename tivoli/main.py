@@ -20,6 +20,5 @@ async def root(token: Annotated[str, Depends(oauth2_scheme)]) -> None:
     except JWTError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Could not validate credentials",
-            headers={"WWW-Authenticate": "Bearer"},
+            detail="Invalid token",
         )
