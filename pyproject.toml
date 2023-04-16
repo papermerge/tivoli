@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "tovali"
+version = "0.1.0"
+description = "JWT token validator"
+authors = ["Eugen Ciur <eugen@papermerge.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.95.1"
+python-jose = "^3.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
