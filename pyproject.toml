@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "tovali"
+name = "tivoli"
 version = "0.1.0"
 description = "JWT token validator"
 authors = ["Eugen Ciur <eugen@papermerge.com>"]
