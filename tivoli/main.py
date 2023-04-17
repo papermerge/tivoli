@@ -10,7 +10,10 @@ app = FastAPI()
 settings = Settings()
 
 
-@app.get("/")
+@app.api_route(
+    "/{whatever:path}",
+    methods=["GET", "POST", "PATCH", "PUT", "OPTIONS", "DELETE"]
+)
 async def root(request: Request) -> Response:
     authorization = request.headers.get("Authorization")
     scheme, token = get_authorization_scheme_param(authorization)
