@@ -10,7 +10,7 @@ validity of jwt token in every request. It reads JWT token from:
 
 Start with docker run command:
 
-    docker run -e PAPERMERGE__SECURITY__SECRET_KEY=123 -p 7000:3000 papermerge/tivoli:0.1.0
+    docker run -e PAPERMERGE__SECURITY__SECRET_KEY=123 -p 7000:3000 papermerge/tivoli:0.2.0
 
 Now any http request without valid jwt token will return 401 Unauthorized.
 JWT token can be set either as part of `Authorization` header or as part
