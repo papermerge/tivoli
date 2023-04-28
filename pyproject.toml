@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tivoli"
-version = "0.1.0"
+version = "0.2.0"
 description = "JWT token validator"
 authors = ["Eugen Ciur <eugen@papermerge.com>"]
 readme = "README.md"
