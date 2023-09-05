@@ -53,7 +53,8 @@ services:
 ## Configurations
 
 | Name                                    | Description                                         | Default       |
-|---|-----------------------------------------------------|---|
+|-----------------------------------------|-----------------------------------------------------|---|
 | `PAPERMERGE__SECURITY__SECRET`          | (**required**) The secret string used to sign token |               |
 | `PAPERMERGE__SECURITY__TOKEN_ALGORITHM` | Algorithm used to sign the token                    | HS256         |
 | `PAPERMERGE__SECURITY__COOKIE_NAME`     | Name of cookie which contains jwt token             | access_token  |
+| `PAPERMERGE__DATABASE__URL`             | DATABASE URL                                        |sqlite:////db/db.sqlite3|
