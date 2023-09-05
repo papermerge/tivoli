@@ -1,5 +1,6 @@
 from enum import Enum
 from pydantic import BaseSettings
+from functools import lru_cache
 
 
 class Algs(str, Enum):
@@ -21,3 +22,8 @@ class Settings(BaseSettings):
 
     # database where to read user table from
     papermerge__database__url: str = "sqlite:////db/db.sqlite3"
+
+
+@lru_cache()
+def get_settings():
+    return Settings()
