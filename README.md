@@ -1,16 +1,24 @@
 # Tivoli
 
-JWT token validator is a http proxy that verifies the presence and
-validity of jwt token in every request. It reads JWT token from:
+JWT token validator is a http proxy that for every HTTP request verifies the 
+presence and validity of jwt token. Also, it checks that user with ID 
+`user_id` is present in database (it checks `core_user` table, column `id`).
+Tivoli reads JWT token from:
 
 - `Authorization` header
 - cookie header
+
+Regarding database, Tivoli needs only table presence of table `core_user` with
+at least one column `id`.
 
 ## Use it
 
 Start with docker run command:
 
-    docker run -e PAPERMERGE__SECURITY__SECRET_KEY=123 -p 7000:3000 papermerge/tivoli:0.2.0
+    docker run
+        -e PAPERMERGE__SECURITY__SECRET_KEY=123 \
+        -e PAPERMERGE__DATABASE__URL=<sqlalchemy database url> \
+        -p 7000:3000 papermerge/tivoli:0.3.0
 
 Now any http request without valid jwt token will return 401 Unauthorized.
 JWT token can be set either as part of `Authorization` header or as part
@@ -43,11 +51,12 @@ Minimal docker compose file:
 version: "3.9"
 services:
   web:
-    image: papermerge/tivoli:0.2.0
+    image: papermerge/tivoli:0.3.0
     ports:
      - "7000:3000"
     environment:
       PAPERMERGE__SECURITY__SECRET_KEY: <your secret string>
+      PAPERMERGE__DATABASE__URL: <sqlalchemy database url>
 ```
 
 ## Configurations
