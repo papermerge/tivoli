@@ -33,3 +33,4 @@ whoosh_index
 .tar
 .tar.gz
 .zip
+dev.yml

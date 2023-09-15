@@ -36,13 +36,13 @@ On valid jwt token, token validator will respond with 200 OK http response code.
 
 
     $  curl -v -H 'Authorization: Bearer <valid token>' http://localhost:8000/random/url
-        
+
     < HTTP/1.1 200 OK
 
 JWT token can be passwed via cookie (by default named 'access_token'):
 
     $ curl --cookie 'access_token=<valid token>' http://localhost:8000/whatever/url
-    
+
     < HTTP/1.1 200 OK
 
 Minimal docker compose file:
@@ -57,6 +57,34 @@ services:
     environment:
       PAPERMERGE__SECURITY__SECRET_KEY: <your secret string>
       PAPERMERGE__DATABASE__URL: <sqlalchemy database url>
+```
+
+If you want to use PostgreSQL as DB:
+
+```
+version: "3.9"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+     - "7000:3000"
+    environment:
+      PAPERMERGE__SECURITY__SECRET_KEY: 123
+      PAPERMERGE__DATABASE__URL: postgresql://postgres:123@db:5432/postgres
+    depends_on:
+        - db
+
+  db:
+    image: bitnami/postgresql:14.4.0
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_PASSWORD=123
+
+volumes:
+  postgres_data:
 ```
 
 ## Configurations
