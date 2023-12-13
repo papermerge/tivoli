@@ -20,7 +20,7 @@ Start with docker run command:
         -e PAPERMERGE__DATABASE__URL=<sqlalchemy database url> \
         -p 7000:3000 papermerge/tivoli:0.3.0
 
-Now any http request without valid jwt token will return 401 Unauthorized.
+For any http request without valid jwt token will return 401 Unauthorized.
 JWT token can be set either as part of `Authorization` header or as part
 of `PAPERMERGE__SECURITY__COOKIE_NAME` cookie (defaults to 'access_token'):
 
@@ -29,7 +29,7 @@ of `PAPERMERGE__SECURITY__COOKIE_NAME` cookie (defaults to 'access_token'):
     < HTTP/1.1 401 Unauthorized
 
 
-"Proper" `Authorization` header looks like `Authorization: Bearer <jwt token>`,
+`Authorization` header format is `Authorization: Bearer <jwt token>`,
 where jwt token was issued and signed with `PAPERMERGE__SECURITY__SECRET_KEY` secret.
 
 On valid jwt token, token validator will respond with 200 OK http response code.
@@ -59,7 +59,9 @@ services:
       PAPERMERGE__DATABASE__URL: <sqlalchemy database url>
 ```
 
-If you want to use PostgreSQL as DB:
+It support PostreSql, MySql/MariaDB, and SqlLite.
+
+For PostgreSQL use following docker compose:
 
 ```
 version: "3.9"
@@ -86,6 +88,40 @@ services:
 volumes:
   postgres_data:
 ```
+
+For MariaDB/MySql use:
+
+```
+version: "3.9"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+     - "7000:3000"
+    environment:
+      PAPERMERGE__SECURITY__SECRET_KEY: 123
+      PAPERMERGE__DATABASE__URL: mysql://user:password@127.0.0.1:3306/mydatabase
+    depends_on:
+        - db
+
+  db:
+    image: mariadb:11.2
+    volumes:
+      - maria:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - 3306:3306
+
+volumes:
+  maria:
+```
+
 
 ## Configurations
 
