@@ -1,11 +1,9 @@
 name: Build Docker Image
 
 on:
-  workflow_dispatch:
-    inputs:
-      TAG:
-        required: true
-        type: string
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -23,7 +21,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: papermerge/tivoli:${{ inputs.TAG }}
+        tags: papermerge/tivoli:${{ github.ref_name }}
         file: Dockerfile
 
     - name: Add description
