@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine
+from sqlalchemy.pool import NullPool
 
 from tivoli.config import get_settings
 
@@ -15,5 +16,5 @@ if SQLALCHEMY_DATABASE_URL.startswith('sqlite'):
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
     connect_args=connect_args,
-    pool_size=settings.papermerge__database__pool_size
+    poolclass=NullPool
 )

@@ -22,7 +22,6 @@ class Settings(BaseSettings):
 
     # database where to read user table from
     papermerge__database__url: str = "sqlite:////db/db.sqlite3"
-    papermerge__database__pool_size: int = 5
 
 
 @lru_cache()
