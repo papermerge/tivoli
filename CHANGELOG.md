@@ -1,5 +1,11 @@
 # Changelog
 
+
+## 0.4.3 - 2024-01-20
+
+- Map user.id to UUID data type instead to str
+
+
 ## 0.4.2 - 2024-01-10
 
 - disable DB connection pooling

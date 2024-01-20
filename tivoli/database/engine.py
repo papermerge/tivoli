@@ -1,3 +1,4 @@
+from sqlalchemy import Engine
 from sqlalchemy import create_engine
 from sqlalchemy.pool import NullPool
 
@@ -18,3 +19,8 @@ engine = create_engine(
     connect_args=connect_args,
     poolclass=NullPool
 )
+
+
+def get_engine() -> Engine:
+    return engine
+

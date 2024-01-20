@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tivoli"
-version = "0.4.2"
+version = "0.4.3"
 description = "JWT token validator"
 authors = ["Eugen Ciur <eugen@papermerge.com>"]
 readme = "README.md"
@@ -14,6 +14,12 @@ sqlalchemy = "^2.0"
 psycopg2 = "^2.9.7"
 mysqlclient = "^2.2.0"
 pydantic-settings = "^2.1.0"
+
+[tool.poetry.group.dev.dependencies]
+taskipy = "^1.12.2"
+
+[tool.taskipy.tasks]
+server='uvicorn tivoli.main:app --host 0.0.0.0 --port 3000'
 
 [build-system]
 requires = ["poetry-core"]
