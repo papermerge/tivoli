@@ -1,3 +1,5 @@
+from uuid import UUID
+from sqlalchemy import Engine, select
 from sqlalchemy.orm import Session
 from fastapi import Request, FastAPI
 from fastapi.security.utils import get_authorization_scheme_param
@@ -9,8 +11,15 @@ app = FastAPI()
 settings = Settings()
 
 
-def get_user(db: Session, user_id: int):
-    return db.query(models.User).filter(models.User.id == user_id).first()
+def get_user(engine: Engine, user_id: UUID) -> models.User:
+    with Session(engine) as session:
+        stmt = select(models.User).where(
+            models.User.id == user_id
+        )
+
+        db_user = session.scalars(stmt).one()
+
+    return db_user
 
 
 def from_header(request: Request) -> str | None:

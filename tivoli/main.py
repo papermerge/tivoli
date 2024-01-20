@@ -1,10 +1,12 @@
+from uuid import UUID
 from sqlalchemy.exc import OperationalError
 from jose import JWTError, jwt
+from sqlalchemy import Engine
 
 from sqlalchemy.orm import Session
 from fastapi import Depends, Request, Response, FastAPI, HTTPException, status
 
-from .database import get_db
+from .database import get_engine
 from .config import Settings
 from .utils import get_token, get_user
 
@@ -18,7 +20,7 @@ settings = Settings()
 )
 async def root(
     request: Request,
-    db: Session = Depends(get_db)
+    engine: Engine = Depends(get_engine)
 ) -> Response:
     """
     Returns 200 OK response if and only if JWT token is valid
@@ -73,7 +75,7 @@ async def root(
     # user_id value is not empty: check
 
     try:
-        user = get_user(db, user_id)
+        user = get_user(engine, UUID(user_id))
     except OperationalError as exc:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
