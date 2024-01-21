@@ -3,7 +3,7 @@ from sqlalchemy.exc import OperationalError
 from jose import JWTError, jwt
 from sqlalchemy import Engine
 
-from sqlalchemy.orm import Session
+from sqlalchemy.exc import NoResultFound
 from fastapi import Depends, Request, Response, FastAPI, HTTPException, status
 
 from .database import get_engine
@@ -81,6 +81,8 @@ async def root(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=f"DB operation error {exc}",
         )
+    except NoResultFound:
+        user = None
 
     # token signature is valid: check
     # user_id key present in the token: check
